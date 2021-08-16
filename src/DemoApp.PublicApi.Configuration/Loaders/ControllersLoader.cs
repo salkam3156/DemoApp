@@ -9,15 +9,22 @@ namespace DemoApp.PublicApi.Configuration.Loaders
     {
         public static IServiceCollection AddControllersFromExternalAssembly(this IServiceCollection serviceCollection, Plugins options)
         {
-             if (options is null) throw new ArgumentException(
-                    $"Unable to load API controllers. Please provide configuration values in {nameof(Plugins)}");
+            if (options is null) throw new ArgumentException(
+                   $"Unable to load API controllers. Please provide configuration values in {nameof(Plugins)}");
 
             var controllersAssembly = GetConfiguredControllersAssembly(options);
+            
+            serviceCollection.RegisterControllersFromAssembly(controllersAssembly);
 
+            return serviceCollection;
+        }
+
+        private static IServiceCollection RegisterControllersFromAssembly(this IServiceCollection serviceCollection, Assembly controllersAssembly)
+        {
             serviceCollection
-                .AddControllers()
-                .AddApplicationPart(controllersAssembly)
-                .AddControllersAsServices();
+                            .AddControllers()
+                            .AddApplicationPart(controllersAssembly)
+                            .AddControllersAsServices();
 
             return serviceCollection;
         }
