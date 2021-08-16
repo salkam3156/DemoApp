@@ -26,7 +26,10 @@ namespace DemoApp.Infrastructure.Repositories
             TEntity queryResult = default;
             try
             {
-                queryResult = await Ctx.Set<TEntity>().Where(predicate).SingleOrDefaultAsync();
+                queryResult = await Ctx
+                    .Set<TEntity>()
+                    .Where(predicate)
+                    .SingleOrDefaultAsync();
             }
             catch (Exception ex) when (ex is InvalidOperationException io || ex is  ArgumentNullException an)
             {
