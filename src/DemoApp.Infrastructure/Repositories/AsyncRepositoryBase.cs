@@ -16,7 +16,7 @@ namespace DemoApp.Infrastructure.Repositories
         public AsyncRepositoryBase(DbContext ctx) 
             => Ctx = ctx;
 
-        public Task<RepositoryFailure> AddAsync(TEntity collection)
+        public Task<RepositoryFailure> AddAsync(TEntity entity)
         {
             throw new System.NotImplementedException();
         }
@@ -39,10 +39,8 @@ namespace DemoApp.Infrastructure.Repositories
 
             return queryResult switch
             {
-                _ when queryResult is TEntity => new Option<TEntity, RepositoryFailure>(queryResult),
+                TEntity => new Option<TEntity, RepositoryFailure>(queryResult),
                 null => new Option<TEntity, RepositoryFailure>(RepositoryFailure.NotFound),
-
-                _ => new Option<TEntity, RepositoryFailure>(RepositoryFailure.UnspecifiedFailure)
             };
         }
 
@@ -56,7 +54,7 @@ namespace DemoApp.Infrastructure.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Task<RepositoryFailure> RemoveAsync(TEntity collection)
+        public Task<RepositoryFailure> RemoveAsync(TEntity entity)
         {
             throw new System.NotImplementedException();
         }
