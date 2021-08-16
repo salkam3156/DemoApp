@@ -43,14 +43,13 @@ namespace DemoApp.ApplicationCore.Tests
                 // when
                 var resultOption = new Option<Product, SomeFailureObject>(failureResult);
 
-                dynamic result = resultOption.Extract(
+                var result = resultOption.Extract(
                     validResult => validResult,
                     failure => { failureMessage = failure.FailureMessage; return default; }
                     );
 
                 // then
                 failureMessage.Should().BeSameAs(failureResult.FailureMessage);
-
             }
         }
     }
