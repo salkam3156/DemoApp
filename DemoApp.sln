@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5EC795FA-8384-4152-87D5-BCE71E15D0A6}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.PublicApi.Configuration", "src\DemoApp.PublicApi.Configuration\DemoApp.PublicApi.Configuration.csproj", "{CEEB7C88-E6D3-41F1-823A-E4359F6FEB6F}"
@@ -14,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.PublicApi.Controlle
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.ApplicationCore", "src\DemoApp.ApplicationCore\DemoApp.ApplicationCore.csproj", "{2095A2BB-4864-4CC0-9242-180C9E2AE3F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp.Infrastructure", "src\DemoApp.Infrastructure\DemoApp.Infrastructure.csproj", "{5BDA0AA3-5D3E-419A-AA7C-9F60F202F12D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.Infrastructure", "src\DemoApp.Infrastructure\DemoApp.Infrastructure.csproj", "{5BDA0AA3-5D3E-419A-AA7C-9F60F202F12D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
