@@ -1,7 +1,9 @@
 ﻿using DemoApp.ApplicationCore.Enumerations;
 using DemoApp.ApplicationCore.GeneralAbstractions;
 using DemoApp.ApplicationCore.RepositoryContracts;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace DemoApp.Infrastructure.Repositories
@@ -13,7 +15,7 @@ namespace DemoApp.Infrastructure.Repositories
             throw new System.NotImplementedException();
         }
         
-        public Task<Option<TEntity, RepositoryFailure>> FindAsync(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
+        public Task<Option<TEntity, RepositoryFailure>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
             throw new System.NotImplementedException();
         }
