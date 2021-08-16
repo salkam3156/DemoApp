@@ -37,21 +37,20 @@ namespace DemoApp.ApplicationCore.Tests
             public void ShouldMakeDetailsAccessibleOnFailure()
             {
                 // given
-                var failure = new SomeFailureObject();
+                var failureResult = new SomeFailureObject();
                 var failureMessage = string.Empty;
 
                 // when
-                var resultOption = new Option<Product, SomeFailureObject>(failure);
+                var resultOption = new Option<Product, SomeFailureObject>(failureResult);
 
-                var result = resultOption.Extract(
+                dynamic result = resultOption.Extract(
                     validResult => validResult,
                     failure => { failureMessage = failure.FailureMessage; return default; }
                     );
 
                 // then
-                failureMessage.Should().BeSameAs(failure.FailureMessage);
+                failureMessage.Should().BeSameAs(failureResult.FailureMessage);
 
-                result.Should().BeSameAs(default);
             }
         }
     }
