@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DemoApp.Infrastructure.Repositories
 {
-    public class AsyncRepositoryBase<TEntity> : IAsyncReposiroty<TEntity> where TEntity : class
+    public abstract class AsyncRepositoryBase<TEntity> : IAsyncReposiroty<TEntity> where TEntity : class
     {
         protected readonly DbContext Ctx;
         public AsyncRepositoryBase(DbContext ctx) 
