@@ -3,55 +3,50 @@ using DemoApp.ApplicationCore.GeneralAbstractions;
 using FluentAssertions;
 using Xunit;
 
-namespace DemoApp.ApplicationCore.Tests
+namespace DemoApp.ApplicationCore.Tests.GenericAbstractions
 {
-
-    namespace DemoApp.ApplicationCore.Tests.GenericAbstractions
+    public class OptionTests
     {
-        public class OptionTests
+        private class SomeFailureObject
         {
-            private class SomeFailureObject
-            {
-                public string FailureMessage => "Operation failed";
-            }
+            public string FailureMessage => "Operation failed";
+        }
 
-            [Fact]
-            public void ShouldProvideResultOnSuccessfulOperation()
-            {
-                // given
-                var validResult = new Product(1, "TestProduct", 1.25f, "This is a test product");
+        [Fact]
+        public void ShouldProvideResultOnSuccessfulOperation()
+        {
+            // given
+            var validResult = new Product(1, "TestProduct", 1.25f, "This is a test product");
 
-                // when
-                var resultOption = new Option<Product, SomeFailureObject>(validResult);
+            // when
+            var resultOption = new Option<Product, SomeFailureObject>(validResult);
 
-                var result = resultOption.Extract(
-                    validResult => validResult,
-                    failure => default
-                    );
+            var result = resultOption.Extract(
+                validResult => validResult,
+                failure => default
+                );
 
-                // then
-                result.Should().BeOfType(typeof(Product)).And.BeSameAs(validResult);
-            }
+            // then
+            result.Should().BeOfType(typeof(Product)).And.BeSameAs(validResult);
+        }
 
-            [Fact]
-            public void ShouldMakeDetailsAccessibleOnFailure()
-            {
-                // given
-                var failureResult = new SomeFailureObject();
-                var failureMessage = string.Empty;
+        [Fact]
+        public void ShouldMakeDetailsAccessibleOnFailure()
+        {
+            // given
+            var failureResult = new SomeFailureObject();
+            var failureMessage = string.Empty;
 
-                // when
-                var resultOption = new Option<Product, SomeFailureObject>(failureResult);
+            // when
+            var resultOption = new Option<Product, SomeFailureObject>(failureResult);
 
-                var result = resultOption.Extract(
-                    validResult => validResult,
-                    failure => { failureMessage = failure.FailureMessage; return default; }
-                    );
+            var result = resultOption.Extract(
+                validResult => validResult,
+                failure => { failureMessage = failure.FailureMessage; return default; }
+                );
 
-                // then
-                failureMessage.Should().BeSameAs(failureResult.FailureMessage);
-            }
+            // then
+            failureMessage.Should().BeSameAs(failureResult.FailureMessage);
         }
     }
-
 }
