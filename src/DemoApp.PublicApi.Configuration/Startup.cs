@@ -27,7 +27,7 @@ namespace DemoApp.PublicApi.Configuration
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DemoApp.PublicApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = pluginsConfiguration.ControllersAssembly, Version = "v1" });
             });
         }
 
@@ -37,7 +37,9 @@ namespace DemoApp.PublicApi.Configuration
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoApp.PublicApi v1"));
+
+                var pluginsConfiguration = _configuration.Get<Plugins>();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{pluginsConfiguration.ControllersAssembly} v1"));
             }
 
             app.UseHttpsRedirection();
