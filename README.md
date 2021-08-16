@@ -14,12 +14,12 @@ where they don't result in exceptions, but a faulted result. Stick to option ret
 
 This ties in to error propagation strategy, where infrastructure errors are not the concern of the application.
 
-Exampl: in the context of the application Core being called by through a Web API: a controller should be introduced
+Example: in the context of the application Core being called by through a Web API: a controller should be introduced
 to catch exceptions propagating that the application did not originate in its assembly.
 "The application is not at fault".
 Then the consumer can decide on logging strategy, depending on their hooks, orchestration across features etc.
 
-## No explicit configuration for QUIC / HTTP 3 despite support by the underlying framework
+### No explicit configuration for QUIC / HTTP 3 despite support by the underlying framework
 Since the standard is still in draft, and the way the application is consumed can be either in-cluster or exposed publicly,
 leave it to the cluster gateway / load balancer/ reverse proxy to utilize the protocol for platform performance gains.
 
