@@ -44,9 +44,13 @@ namespace DemoApp.Infrastructure.Repositories
             };
         }
 
-        public Task<Option<IEnumerable<TEntity>, RepositoryFailure>> GetAllAsync()
+        public async Task<Option<IEnumerable<TEntity>, RepositoryFailure>> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+            var queryResults = await Ctx
+                .Set<TEntity>()
+                .ToListAsync();
+
+            return new Option<IEnumerable<TEntity>, RepositoryFailure>(queryResults.AsReadOnly());
         }
 
         public Task<Option<TEntity, RepositoryFailure>> GetAsync(int id)
