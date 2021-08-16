@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DemoApp.PublicApi.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("api/[controller]")]
     public sealed class ProductsController : ControllerBase
     {
         [HttpGet]
