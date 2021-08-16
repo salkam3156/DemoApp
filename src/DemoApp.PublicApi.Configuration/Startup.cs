@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DemoApp.PublicApi.Configuration.Configuration;
+using DemoApp.PublicApi.Configuration.Loaders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,14 +11,20 @@ namespace DemoApp.PublicApi.Configuration
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        private IConfiguration _configuration { get; }
         
         public Startup(IConfiguration configuration)
-            => Configuration = configuration;
+            => _configuration = configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services
+                .AddOptions()
+                .Configure<Plugins>(_configuration);
+
+            var pluginsConfiguration = _configuration.Get<Plugins>();
+            services.AddControllersFromExternalAssembly(pluginsConfiguration);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DemoApp.PublicApi", Version = "v1" });
