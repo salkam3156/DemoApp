@@ -17,9 +17,7 @@ namespace DemoApp.ApplicationCore.Entities
                 () => productsSold is not null && productsSold.Any());
 
             Id = id;
-
             ApplicableTax = applicableTax;
-
             ProductsSold = productsSold;
         }
 
