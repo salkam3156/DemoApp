@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DemoApp.Infrastructure.Repositories.DbContexts
 {
-    public sealed class ProductsDbContext : DbContext
+    public sealed class AppContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
-        
-        public ProductsDbContext(DbContextOptions<ProductsDbContext> contextOptions) : base(contextOptions) { }
+
+        public AppContext(DbContextOptions<AppContext> contextOptions) : base(contextOptions) { }
     }
 }

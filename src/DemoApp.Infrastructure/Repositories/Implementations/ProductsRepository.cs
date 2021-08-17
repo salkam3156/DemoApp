@@ -13,14 +13,14 @@ namespace DemoApp.Infrastructure.Repositories.Implementations
 {
     public sealed class ProductsRepository : AsyncRepositoryBase<Product>, IProductsRepository
     {
-        public ProductsRepository(ProductsDbContext ctx) : base(ctx) {}
-        public ProductsDbContext ProductsContext
-            => Ctx as ProductsDbContext 
-            ?? throw new DatabaseAccessException($"{nameof(ProductsContext)} could not be accessed due to failed DB dependency.");
+        public ProductsRepository(AppContext ctx) : base(ctx) {}
+        public AppContext AppContext
+            => Ctx as AppContext 
+            ?? throw new DatabaseAccessException($"{nameof(AppContext)} could not be accessed due to failed DB dependency.");
 
         public Task<Option<IEnumerable<Product>, RepositoryFailure>> FindProductsBelowPrice(float price)
         {
-            var productsBelowPrice = ProductsContext
+            var productsBelowPrice = AppContext
                 .Products
                 .Where(product => product.Price < price);
             
