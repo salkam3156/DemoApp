@@ -1,7 +1,9 @@
+using DemoApp.Infrastructure.Repositories.DbContexts;
 using DemoApp.PublicApi.Configuration.Configuration;
 using DemoApp.PublicApi.Configuration.Loaders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,6 +20,8 @@ namespace DemoApp.PublicApi.Configuration
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DomainContext>(opt => opt.UseInMemoryDatabase(databaseName: "Domain"));
+
             services
                 .AddOptions()
                 .Configure<Plugins>(_configuration);

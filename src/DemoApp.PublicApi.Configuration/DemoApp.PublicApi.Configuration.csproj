@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.9" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DemoApp.Infrastructure\DemoApp.Infrastructure.csproj" />
     <ProjectReference Include="..\DemoApp.PublicApi.Controllers\DemoApp.PublicApi.Controllers.csproj" />
   </ItemGroup>
 
