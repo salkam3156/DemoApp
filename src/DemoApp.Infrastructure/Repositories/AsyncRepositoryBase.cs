@@ -1,4 +1,4 @@
-﻿using DemoApp.ApplicationCore.Enumerations;
+﻿using DemoApp.ApplicationCore.Enums;
 using DemoApp.ApplicationCore.GeneralAbstractions;
 using DemoApp.ApplicationCore.RepositoryContracts;
 using Microsoft.EntityFrameworkCore;

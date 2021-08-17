@@ -1,6 +1,5 @@
-﻿
-using DemoApp.ApplicationCore.Entities;
-using DemoApp.ApplicationCore.Enumerations;
+﻿using DemoApp.ApplicationCore.Entities;
+using DemoApp.ApplicationCore.Enums;
 using DemoApp.ApplicationCore.GeneralAbstractions;
 using DemoApp.ApplicationCore.RepositoryContracts;
 using DemoApp.Infrastructure.Exceptions.Database;
@@ -13,12 +12,12 @@ namespace DemoApp.Infrastructure.Repositories.Implementations
 {
     public sealed class ProductsRepository : AsyncRepositoryBase<Product>, IProductsRepository
     {
-        public ProductsRepository(AppContext ctx) : base(ctx) {}
-        public AppContext AppContext
-            => Ctx as AppContext 
+        public ProductsRepository(DomainContext ctx) : base(ctx) {}
+        public DomainContext AppContext
+            => Ctx as DomainContext
             ?? throw new DatabaseAccessException($"{nameof(AppContext)} could not be accessed due to failed DB dependency.");
 
-        public Task<Option<IEnumerable<Product>, RepositoryFailure>> FindProductsBelowPrice(float price)
+        public Task<Option<IEnumerable<Product>, RepositoryFailure>> FindProductsBelowPriceAsync(decimal price)
         {
             var productsBelowPrice = AppContext
                 .Products

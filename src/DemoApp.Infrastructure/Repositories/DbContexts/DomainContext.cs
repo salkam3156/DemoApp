@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DemoApp.Infrastructure.Repositories.DbContexts
 {
-    public sealed class AppContext : DbContext
+    public sealed class DomainContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
+        public DbSet<Sale> Sales { get; set; }
 
-        public AppContext(DbContextOptions<AppContext> contextOptions) : base(contextOptions) { }
+        public DomainContext(DbContextOptions<DomainContext> contextOptions) : base(contextOptions) { }
     }
 }

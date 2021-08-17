@@ -1,4 +1,4 @@
-﻿using DemoApp.ApplicationCore.Enumerations;
+﻿using DemoApp.ApplicationCore.Enums;
 using DemoApp.ApplicationCore.GeneralAbstractions;
 using System;
 using System.Collections.Generic;

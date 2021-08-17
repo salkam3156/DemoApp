@@ -1,4 +1,4 @@
-﻿namespace DemoApp.ApplicationCore.Enumerations
+﻿namespace DemoApp.ApplicationCore.Enums
 {
     public enum RepositoryFailure
     {
@@ -7,6 +7,5 @@
         
         GeneralExecutionFailure = 3,
         UnspecifiedFailure = 4,
-
     }
 }
