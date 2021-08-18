@@ -37,7 +37,7 @@ namespace DemoApp.ApplicationCore.Entities
         Peripheral = 1 << 0,
         Display = 1 << 1,
         GraphicsCard = 1 << 2,
-        MotherBoard = 1 << 3,
+        Motherboard = 1 << 3,
         Mouse = 1 << 4,
         Keyboard = 1 << 5,
         Micallaneous = 1 << 6,
