@@ -27,7 +27,7 @@ namespace DemoApp.ApplicationCore.Tests.GenericAbstractions
                 );
 
             // then
-            result.Should().BeOfType(typeof(Product)).And.BeSameAs(validResult);
+            extractedValue.Should().BeOfType(typeof(Product)).And.BeSameAs(validResult);
         }
 
         [Fact]
