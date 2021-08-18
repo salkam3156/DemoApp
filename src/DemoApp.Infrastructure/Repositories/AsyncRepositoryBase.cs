@@ -21,7 +21,7 @@ namespace DemoApp.Infrastructure.Repositories
             throw new System.NotImplementedException();
         }
         
-        public async Task<Option<TEntity, RepositoryFailure>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<Result<TEntity, RepositoryFailure>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
             TEntity queryResult = default;
             try
@@ -34,26 +34,26 @@ namespace DemoApp.Infrastructure.Repositories
             catch (Exception ex) when (ex is InvalidOperationException io || ex is  ArgumentNullException an)
             {
                 //TODO: add logging
-                return new Option<TEntity, RepositoryFailure>(RepositoryFailure.GeneralExecutionFailure);
+                return new Result<TEntity, RepositoryFailure>(RepositoryFailure.GeneralExecutionFailure);
             }
 
             return queryResult switch
             {
-                TEntity => new Option<TEntity, RepositoryFailure>(queryResult),
-                null => new Option<TEntity, RepositoryFailure>(RepositoryFailure.NotFound),
+                TEntity => new Result<TEntity, RepositoryFailure>(queryResult),
+                null => new Result<TEntity, RepositoryFailure>(RepositoryFailure.NotFound),
             };
         }
 
-        public async Task<Option<IEnumerable<TEntity>, RepositoryFailure>> GetAllAsync()
+        public async Task<Result<IEnumerable<TEntity>, RepositoryFailure>> GetAllAsync()
         {
             var queryResults = await Ctx
                 .Set<TEntity>()
                 .ToListAsync();
 
-            return new Option<IEnumerable<TEntity>, RepositoryFailure>(queryResults.AsReadOnly());
+            return new Result<IEnumerable<TEntity>, RepositoryFailure>(queryResults.AsReadOnly());
         }
 
-        public Task<Option<TEntity, RepositoryFailure>> GetAsync(int id)
+        public Task<Result<TEntity, RepositoryFailure>> GetAsync(int id)
         {
             throw new System.NotImplementedException();
         }

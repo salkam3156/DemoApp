@@ -11,8 +11,8 @@ namespace DemoApp.ApplicationCore.RepositoryContracts
     {
         Task<RepositoryFailure> AddAsync(TEntity collection);
         Task<RepositoryFailure> RemoveAsync(TEntity collection);
-        Task<Option<TEntity, RepositoryFailure>> GetAsync(int id);
-        Task<Option<IEnumerable<TEntity>, RepositoryFailure>> GetAllAsync();
-        Task<Option<TEntity, RepositoryFailure>> FindAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<Result<TEntity, RepositoryFailure>> GetAsync(int id);
+        Task<Result<IEnumerable<TEntity>, RepositoryFailure>> GetAllAsync();
+        Task<Result<TEntity, RepositoryFailure>> FindAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }

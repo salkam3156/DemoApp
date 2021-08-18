@@ -19,7 +19,7 @@ namespace DemoApp.ApplicationCore.Tests.GenericAbstractions
             var validResult = new Product(1, "Test Product Name", ProductType.Micallaneous, 1.25m, "Test Manufacturer");
 
             // when
-            var resultOption = new Option<Product, SomeFailureObject>(validResult);
+            var resultOption = new Result<Product, SomeFailureObject>(validResult);
 
             var result = resultOption.Extract(
                 validResult => validResult,
@@ -38,7 +38,7 @@ namespace DemoApp.ApplicationCore.Tests.GenericAbstractions
             var failureMessage = string.Empty;
 
             // when
-            var resultOption = new Option<Product, SomeFailureObject>(failureResult);
+            var resultOption = new Result<Product, SomeFailureObject>(failureResult);
 
             var result = resultOption.Extract(
                 validResult => validResult,

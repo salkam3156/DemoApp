@@ -8,6 +8,6 @@ namespace DemoApp.ApplicationCore.RepositoryContracts
 {
     public interface IProductsRepository
     {
-        public Task<Option<IEnumerable<Product>, RepositoryFailure>> FindProductsBelowPriceAsync(decimal price);
+        public Task<Result<IEnumerable<Product>, RepositoryFailure>> FindProductsBelowPriceAsync(decimal price);
     }
 }
