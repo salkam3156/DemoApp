@@ -1,6 +1,6 @@
 ﻿using DemoApp.ApplicationCore.GeneralAbstractions;
 
-namespace DemoApp.ApplicationCore.Models
+namespace DemoApp.ApplicationServices.Models
 {
     public sealed record Notification
     {
