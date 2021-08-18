@@ -9,7 +9,7 @@ namespace DemoApp.ApplicationCore.Entities
         public string Name { get; private init; }
         public ProductType Type { get; private init; }
         public decimal Price { get; private init; }
-        public string Producer { get; private init; }
+        public string Manufacturer { get; private init; }
         public string Description { get; private init; }
 
         private Product() { }
@@ -26,7 +26,7 @@ namespace DemoApp.ApplicationCore.Entities
             Name = name;
             Type = type;
             Price = price;
-            Producer = manufacturer;
+            Manufacturer = manufacturer;
             Description = description;
         }
     }
