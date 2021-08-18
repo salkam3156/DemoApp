@@ -7,6 +7,7 @@ namespace DemoApp.PublicApi.Configuration.Configuration
     {
         // could be supplied from an infrastructure hook etc.
         // and serialized to be used via Options Monitor abstraction
-        public string ControllersAssembly { get; set; } = "DemoApp.PublicApi.Controllers"; 
+        public string ControllersAssembly { get; set; } = "DemoApp.PublicApi.Controllers";
+        public string FeaturesAssembly { get; set; } = "DemoApp.ApplicationServices";
     }
 }
