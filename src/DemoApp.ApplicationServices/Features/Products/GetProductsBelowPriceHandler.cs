@@ -9,11 +9,11 @@ using MediatR;
 
 namespace DemoApp.ApplicationServices.Features.Products
 {
-    public class GetProductsBelowePriceHandler : IRequestHandler<GetProductsBelowPriceQuery, Result<IEnumerable<Product>, DataAccessResult>>
+    public class GetProductsBelowPriceHandler : IRequestHandler<GetProductsBelowPriceQuery, Result<IEnumerable<Product>, DataAccessResult>>
     {
         private readonly IProductsRepository _productsRepository;
 
-        public GetProductsBelowePriceHandler(IProductsRepository productsRepository)
+        public GetProductsBelowPriceHandler(IProductsRepository productsRepository)
             => _productsRepository = productsRepository;
         
         public async Task<Result<IEnumerable<Product>, DataAccessResult>> Handle(GetProductsBelowPriceQuery request, CancellationToken cancellationToken)
