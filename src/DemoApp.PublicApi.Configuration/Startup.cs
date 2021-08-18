@@ -1,15 +1,19 @@
+using DemoApp.ApplicationCore.MessagingContracts;
 using DemoApp.ApplicationCore.RepositoryContracts;
+using DemoApp.Infrastructure.ClientNotifiers;
 using DemoApp.Infrastructure.Repositories.DbContexts;
 using DemoApp.Infrastructure.Repositories.Implementations;
 using DemoApp.PublicApi.Configuration.Configuration;
 using DemoApp.PublicApi.Configuration.Loaders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace DemoApp.PublicApi.Configuration
 {
@@ -28,7 +32,16 @@ namespace DemoApp.PublicApi.Configuration
                 .AddOptions()
                 .Configure<Plugins>(_configuration);
 
+            services.AddSignalR(cfg =>
+            {
+                cfg.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
+                cfg.HandshakeTimeout = TimeSpan.FromSeconds(30);
+                cfg.KeepAliveInterval = TimeSpan.FromSeconds(30);
+            });
+
             services.AddTransient<IProductsRepository, ProductsRepository>();
+            services.AddTransient<INotifier, NotificationGateway>();
+
 
             var pluginsConfiguration = _configuration.Get<Plugins>();
             services.AddControllersFromExternalAssembly(pluginsConfiguration);
@@ -58,6 +71,7 @@ namespace DemoApp.PublicApi.Configuration
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<SignalRNotificationHub>("/notififcations", opt => opt.Transports = HttpTransportType.WebSockets | HttpTransportType.LongPolling);
                 endpoints.MapControllers();
             });
         }
