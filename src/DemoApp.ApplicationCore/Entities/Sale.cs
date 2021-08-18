@@ -7,10 +7,10 @@ namespace DemoApp.ApplicationCore.Entities
 {
     public sealed record Sale
     {
-        public int Id { get; init; }
-        public decimal ApplicableTax { get; init; }
-        public IEnumerable<Product> ProductsSold { get; init; }
-        public DateTime SoldOn { get; init; }
+        public int Id { get; private init; }
+        public decimal ApplicableTax { get; private init; }
+        public IEnumerable<Product> ProductsSold { get; private init; }
+        public DateTime SoldOn { get; private init; }
 
         public Sale(int id, decimal applicableTax, DateTime soldOn, IEnumerable<Product> productsSold)
         {

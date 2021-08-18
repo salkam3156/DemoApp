@@ -5,12 +5,12 @@ namespace DemoApp.ApplicationCore.Entities
 {
     public sealed record Product 
     {
-        public int Id { get; init; }
-        public string Name { get; init; }
-        public ProductType Type { get; init; }
-        public decimal Price { get; init; }
-        public string Producer { get; init; }
-        public string Description { get; init; }
+        public int Id { get; private init; }
+        public string Name { get; private init; }
+        public ProductType Type { get; private init; }
+        public decimal Price { get; private init; }
+        public string Producer { get; private init; }
+        public string Description { get; private init; }
 
         private Product() { }
         public Product(int id, string name, ProductType type, decimal price, string manufacturer, string description = "")
