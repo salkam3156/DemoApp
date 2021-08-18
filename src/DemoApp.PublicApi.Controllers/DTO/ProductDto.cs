@@ -2,7 +2,7 @@
 
 namespace DemoApp.PublicApi.Controllers.DTO
 {
-    public class ProductDto
+    public record ProductDto
     {
         public string Name { get; init; }
         public ProductType Type { get; init; }
