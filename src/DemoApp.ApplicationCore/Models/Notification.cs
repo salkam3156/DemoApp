@@ -11,7 +11,7 @@ namespace DemoApp.ApplicationCore.Models
             Validation.ThrowIfAnyAreFalse(
                 () => string.IsNullOrWhiteSpace(message) is false);
 
-            message = message;
+            Message = message;
         }
     }
 }

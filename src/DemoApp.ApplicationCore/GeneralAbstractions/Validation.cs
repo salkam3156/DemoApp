@@ -16,7 +16,6 @@ namespace DemoApp.ApplicationCore.GeneralAbstractions
                 if(predicate.Invoke() is false) 
                     throw new ObjectCreationException("Validation failed while creating a domain object.");
             };
-            
         }
     }
 }
