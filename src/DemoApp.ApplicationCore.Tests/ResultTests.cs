@@ -35,18 +35,18 @@ namespace DemoApp.ApplicationCore.Tests.GenericAbstractions
         {
             // given
             var failureResult = new SomeFailureObject();
-            var failureMessage = string.Empty;
+            var expectedFailureMessage = string.Empty;
 
             // when
             var result = new Result<Product, SomeFailureObject>(failureResult);
 
             var extractedValue = result.Extract(
                 validResult => validResult,
-                failure => { failureMessage = failure.FailureMessage; return default; }
+                failure => { expectedFailureMessage = failure.FailureMessage; return default; }
                 );
 
             // then
-            failureMessage.Should().BeSameAs(failureResult.FailureMessage);
+            expectedFailureMessage.Should().BeSameAs(failureResult.FailureMessage);
         }
     }
 }
