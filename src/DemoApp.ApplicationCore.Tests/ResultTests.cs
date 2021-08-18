@@ -5,7 +5,7 @@ using Xunit;
 
 namespace DemoApp.ApplicationCore.Tests.GenericAbstractions
 {
-    public class OptionTests
+    public class ResultTests
     {
         private class SomeFailureObject
         {
@@ -19,9 +19,9 @@ namespace DemoApp.ApplicationCore.Tests.GenericAbstractions
             var validResult = new Product(1, "Test Product Name", ProductType.Micallaneous, 1.25m, "Test Manufacturer");
 
             // when
-            var resultOption = new Result<Product, SomeFailureObject>(validResult);
+            var result = new Result<Product, SomeFailureObject>(validResult);
 
-            var result = resultOption.Extract(
+            var extractedValue = result.Extract(
                 validResult => validResult,
                 failure => default
                 );
@@ -38,9 +38,9 @@ namespace DemoApp.ApplicationCore.Tests.GenericAbstractions
             var failureMessage = string.Empty;
 
             // when
-            var resultOption = new Result<Product, SomeFailureObject>(failureResult);
+            var result = new Result<Product, SomeFailureObject>(failureResult);
 
-            var result = resultOption.Extract(
+            var extractedValue = result.Extract(
                 validResult => validResult,
                 failure => { failureMessage = failure.FailureMessage; return default; }
                 );
