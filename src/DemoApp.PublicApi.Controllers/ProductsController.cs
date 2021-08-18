@@ -1,5 +1,7 @@
-﻿using DemoApp.ApplicationCore.Entities;
+﻿using AutoMapper;
+using DemoApp.ApplicationCore.Entities;
 using DemoApp.ApplicationCore.RepositoryContracts;
+using DemoApp.PublicApi.Controllers.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -13,11 +15,12 @@ namespace DemoApp.PublicApi.Controllers
     public sealed class ProductsController : ControllerBase
     {
         private readonly IProductsRepository _productsRepository;
-        public ProductsController(IProductsRepository productsRepository)
-            => _productsRepository = productsRepository;
+        private readonly IMapper _mapper;
+        public ProductsController(IProductsRepository productsRepository, IMapper mapper)
+            => (_productsRepository, _mapper) = (productsRepository, mapper);
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Product>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ProductDto>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetProductsBelowPrice([FromQuery] decimal price)
         {
@@ -26,8 +29,12 @@ namespace DemoApp.PublicApi.Controllers
             var extractedResult = productsBelowPrice.Extract(
                 products => products,
                 fetchFailure => Enumerable.Empty<Product>());
-            
-            return Ok(extractedResult);
+
+            return extractedResult.Any() switch
+            {
+                true => Ok(_mapper.Map<List<ProductDto>>(extractedResult)),
+                false => NotFound()
+            };
         }
     }
 }
