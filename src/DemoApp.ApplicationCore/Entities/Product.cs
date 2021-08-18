@@ -19,13 +19,12 @@ namespace DemoApp.ApplicationCore.Entities
                 () => id >= 1,
                 () => string.IsNullOrWhiteSpace(name) is false,
                 () => string.IsNullOrWhiteSpace(manufacturer) is false,
-                () => Enum.IsDefined<ProductType>(type),
-                () => price > 0);
+                () => Enum.IsDefined(type));
             
             Id = id;
             Name = name;
             Type = type;
-            Price = price;
+            Price = price < 0m ? 0m : price;
             Manufacturer = manufacturer;
             Description = description;
         }
@@ -40,7 +39,7 @@ namespace DemoApp.ApplicationCore.Entities
         Motherboard = 1 << 3,
         Mouse = 1 << 4,
         Keyboard = 1 << 5,
-        Micallaneous = 1 << 6,
+        Miscellaneous = 1 << 6,
         GamingConsole = 1 << 7,
         Software = 1 << 8,
     }
