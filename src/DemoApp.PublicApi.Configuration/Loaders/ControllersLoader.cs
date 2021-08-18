@@ -26,6 +26,8 @@ namespace DemoApp.PublicApi.Configuration.Loaders
                             .AddApplicationPart(controllersAssembly)
                             .AddControllersAsServices();
 
+            serviceCollection.AddAutoMapper(controllersAssembly);
+
             return serviceCollection;
         }
 
