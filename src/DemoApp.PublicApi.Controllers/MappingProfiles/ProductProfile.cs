@@ -8,7 +8,7 @@ namespace DemoApp.PublicApi.Controllers.MappingProfiles
     {
         public ProductProfile()
         {
-            CreateMap<Product, ProductDto>();
+            CreateMap<Product, ProductResponseDto>();
         }
     }
 }

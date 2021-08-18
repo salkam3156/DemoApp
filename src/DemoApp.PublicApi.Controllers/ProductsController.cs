@@ -22,7 +22,7 @@ namespace DemoApp.PublicApi.Controllers
             => (_mediator, _mapper) = (mediator, mapper);
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ProductDto>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ProductResponseDto>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetProductsBelowPrice([FromQuery] decimal price)
         {
@@ -34,7 +34,7 @@ namespace DemoApp.PublicApi.Controllers
             
             return extractedResult.Any() switch
             {
-                true => Ok(_mapper.Map<List<ProductDto>>(extractedResult)),
+                true => Ok(_mapper.Map<List<ProductResponseDto>>(extractedResult)),
                 false => NotFound()
             };
         }
