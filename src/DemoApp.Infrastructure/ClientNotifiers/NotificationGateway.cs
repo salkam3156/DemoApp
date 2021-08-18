@@ -1,7 +1,7 @@
-﻿using DemoApp.ApplicationCore.MessagingContracts;
-using DemoApp.ApplicationCore.Models;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
+using DemoApp.ApplicationServices.MessagingContracts;
+using DemoApp.ApplicationServices.Models;
 
 namespace DemoApp.Infrastructure.ClientNotifiers
 {
@@ -13,6 +13,6 @@ namespace DemoApp.Infrastructure.ClientNotifiers
             => _hubContext = hubContext;
         
         public async Task NotifyClientsAsync(Notification notification)
-            => await _hubContext.Clients.All.SendAsync(notification.ToString());
+            => await _hubContext.Clients.All.SendAsync("ClientNotification",notification);
     }
 }
