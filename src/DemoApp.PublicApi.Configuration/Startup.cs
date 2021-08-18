@@ -1,4 +1,3 @@
-using DemoApp.ApplicationCore.MessagingContracts;
 using DemoApp.ApplicationCore.RepositoryContracts;
 using DemoApp.Infrastructure.ClientNotifiers;
 using DemoApp.Infrastructure.Repositories.DbContexts;
@@ -14,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using DemoApp.ApplicationServices.MessagingContracts;
 
 namespace DemoApp.PublicApi.Configuration
 {
@@ -45,6 +45,7 @@ namespace DemoApp.PublicApi.Configuration
 
             var pluginsConfiguration = _configuration.Get<Plugins>();
             services.AddControllersFromExternalAssembly(pluginsConfiguration);
+            services.AddApplicationFeatures(pluginsConfiguration);
 
             services.AddSwaggerGen(c =>
             {
