@@ -1,4 +1,6 @@
+using DemoApp.ApplicationCore.RepositoryContracts;
 using DemoApp.Infrastructure.Repositories.DbContexts;
+using DemoApp.Infrastructure.Repositories.Implementations;
 using DemoApp.PublicApi.Configuration.Configuration;
 using DemoApp.PublicApi.Configuration.Loaders;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +27,8 @@ namespace DemoApp.PublicApi.Configuration
             services
                 .AddOptions()
                 .Configure<Plugins>(_configuration);
+
+            services.AddTransient<IProductsRepository, ProductsRepository>();
 
             var pluginsConfiguration = _configuration.Get<Plugins>();
             services.AddControllersFromExternalAssembly(pluginsConfiguration);
