@@ -17,14 +17,14 @@ namespace DemoApp.Infrastructure.Repositories.Implementations
             => Ctx as DomainContext
             ?? throw new DatabaseAccessException($"{nameof(AppContext)} could not be accessed due to failed DB dependency.");
 
-        public Task<Result<IEnumerable<Product>, RepositoryFailure>> FindProductsBelowPriceAsync(decimal price)
+        public Task<Result<IEnumerable<Product>, DataAccessResult>> FindProductsBelowPriceAsync(decimal price)
         {
             var productsBelowPrice = AppContext
                 .Products
                 .Where(product => product.Price < price);
             
             return Task.FromResult(
-                new Result<IEnumerable<Product>, RepositoryFailure>(productsBelowPrice)
+                new Result<IEnumerable<Product>, DataAccessResult>(productsBelowPrice)
                 );
         }
     }

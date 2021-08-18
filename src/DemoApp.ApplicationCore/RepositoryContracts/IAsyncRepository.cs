@@ -9,10 +9,10 @@ namespace DemoApp.ApplicationCore.RepositoryContracts
 {
     public interface IAsyncReposiroty<TEntity> where TEntity : class
     {
-        Task<RepositoryFailure> AddAsync(TEntity collection);
-        Task<RepositoryFailure> RemoveAsync(TEntity collection);
-        Task<Result<TEntity, RepositoryFailure>> GetAsync(int id);
-        Task<Result<IEnumerable<TEntity>, RepositoryFailure>> GetAllAsync();
-        Task<Result<TEntity, RepositoryFailure>> FindAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<DataAccessResult> AddAsync(TEntity collection);
+        Task<DataAccessResult> RemoveAsync(TEntity collection);
+        Task<Result<TEntity, DataAccessResult>> GetAsync(int id);
+        Task<Result<IEnumerable<TEntity>, DataAccessResult>> GetAllAsync();
+        Task<Result<TEntity, DataAccessResult>> FindAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }

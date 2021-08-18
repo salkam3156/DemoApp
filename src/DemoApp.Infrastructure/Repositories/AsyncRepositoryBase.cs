@@ -16,12 +16,12 @@ namespace DemoApp.Infrastructure.Repositories
         public AsyncRepositoryBase(DbContext ctx) 
             => Ctx = ctx;
 
-        public Task<RepositoryFailure> AddAsync(TEntity entity)
+        public Task<DataAccessResult> AddAsync(TEntity entity)
         {
             throw new System.NotImplementedException();
         }
         
-        public async Task<Result<TEntity, RepositoryFailure>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<Result<TEntity, DataAccessResult>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
             TEntity queryResult = default;
             try
@@ -34,31 +34,31 @@ namespace DemoApp.Infrastructure.Repositories
             catch (Exception ex) when (ex is InvalidOperationException io || ex is  ArgumentNullException an)
             {
                 //TODO: add logging
-                return new Result<TEntity, RepositoryFailure>(RepositoryFailure.GeneralExecutionFailure);
+                return new Result<TEntity, DataAccessResult>(DataAccessResult.GeneralExecutionFailure);
             }
 
             return queryResult switch
             {
-                TEntity => new Result<TEntity, RepositoryFailure>(queryResult),
-                null => new Result<TEntity, RepositoryFailure>(RepositoryFailure.NotFound),
+                TEntity => new Result<TEntity, DataAccessResult>(queryResult),
+                null => new Result<TEntity, DataAccessResult>(DataAccessResult.NotFound),
             };
         }
 
-        public async Task<Result<IEnumerable<TEntity>, RepositoryFailure>> GetAllAsync()
+        public async Task<Result<IEnumerable<TEntity>, DataAccessResult>> GetAllAsync()
         {
             var queryResults = await Ctx
                 .Set<TEntity>()
                 .ToListAsync();
 
-            return new Result<IEnumerable<TEntity>, RepositoryFailure>(queryResults.AsReadOnly());
+            return new Result<IEnumerable<TEntity>, DataAccessResult>(queryResults.AsReadOnly());
         }
 
-        public Task<Result<TEntity, RepositoryFailure>> GetAsync(int id)
+        public Task<Result<TEntity, DataAccessResult>> GetAsync(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<RepositoryFailure> RemoveAsync(TEntity entity)
+        public Task<DataAccessResult> RemoveAsync(TEntity entity)
         {
             throw new System.NotImplementedException();
         }

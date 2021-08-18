@@ -16,7 +16,7 @@ namespace DemoApp.ApplicationCore.Tests.GenericAbstractions
         public void ShouldProvideResultOnSuccessfulOperation()
         {
             // given
-            var validResult = new Product(1, "Test Product Name", ProductType.Micallaneous, 1.25m, "Test Manufacturer");
+            var validResult = new Product(1, "Test Product Name", ProductType.Miscellaneous, 1.25m, "Test Manufacturer");
 
             // when
             var result = new Result<Product, SomeFailureObject>(validResult);
