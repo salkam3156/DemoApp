@@ -6,11 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DemoApp.ApplicationServices\DemoApp.ApplicationServices.csproj" />
     <ProjectReference Include="..\DemoApp.Infrastructure\DemoApp.Infrastructure.csproj" />
     <ProjectReference Include="..\DemoApp.PublicApi.Controllers\DemoApp.PublicApi.Controllers.csproj" />
   </ItemGroup>
