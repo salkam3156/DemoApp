@@ -37,8 +37,6 @@ namespace DemoApp.ApplicationServices.Features.Sales
                     return Enumerable.Empty<Product>();
                 });
 
-            if (products.Any() is false)  return new Result<Sale, DataAccessResult>(DataAccessResult.UnableToCreate);
-
             var applicableTax = await _regionalTaxProvider
                 .GetTaxForRegionAsync(new TaxRegion("USA" /* or this_region_configured_or_retrieved_from_somewhere.
                                                       * APIs should provide stronger typing though nugets or swagger documentation but it's an exmaple,
