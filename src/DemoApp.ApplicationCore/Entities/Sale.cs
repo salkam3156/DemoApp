@@ -10,14 +10,13 @@ namespace DemoApp.ApplicationCore.Entities
 
         public int Id { get; private init; }
         public decimal ApplicableTax { get; private init; }
-
         public List<Product> ProductsSold { get; private set; }
         public DateTime SoldOn { get; private init; }
 
         public Sale(decimal applicableTax, IEnumerable<Product> productsSold)
         {
             Validation.ThrowIfAnyAreFalse(
-                () => applicableTax > 0,
+                () => applicableTax is > 0m and < 100m,
                 () => productsSold is not null && productsSold.Any());
 
             ApplicableTax = applicableTax;
