@@ -4,7 +4,7 @@ namespace DemoApp.ApplicationCore.GeneralAbstractions
 {
     /// <summary>
     /// Quick and dirty implementation of Result a la Rust
-    /// Normally best to use language extention option, or OneOf library
+    /// Normally best to use language extension option or OneOf library
     /// </summary>
     public sealed class Result<TValidResult, TFailure>
     {
