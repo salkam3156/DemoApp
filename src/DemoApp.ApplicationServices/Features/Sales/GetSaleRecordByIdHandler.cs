@@ -1,6 +1,7 @@
 ﻿using DemoApp.ApplicationCore.Entities;
 using DemoApp.ApplicationCore.Enums;
 using DemoApp.ApplicationCore.GeneralAbstractions;
+using DemoApp.ApplicationCore.RepositoryContracts;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,9 +10,14 @@ namespace DemoApp.ApplicationServices.Features.Sales
 {
     public class GetSaleRecordByIdHandler : IRequestHandler<GetSaleRecordByIdRequest, Result<Sale, DataAccessResult>>
     {
-        public Task<Result<Sale, DataAccessResult>> Handle(GetSaleRecordByIdRequest request, CancellationToken cancellationToken)
+        private readonly ISalesRepository _salesRepository;
+
+        public GetSaleRecordByIdHandler(ISalesRepository salesRepository)
+            => _salesRepository = salesRepository;
+            
+        public async Task<Result<Sale, DataAccessResult>> Handle(GetSaleRecordByIdRequest request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            return await _salesRepository.FindSaleRecord(request.SaleId);
         }
     }
 }
