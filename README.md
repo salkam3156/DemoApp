@@ -48,12 +48,12 @@ performance reasons, technology change that future may bring given some limitati
 
 ## Road forward
 
-If this is to be botha demo and a template, repositories should not map 1-1 to CRUD operations. Need to make domain richer to be able to think up / demonstrate some sensical use cases.
+If this is to be both a demo and a template, repositories should not map 1-1 to CRUD operations. Need to make domain richer to be able to think up / demonstrate some sensical use cases.
 
 Application Queries and Commands should percolate up to controller level, and basically be the Action params.
 In such a way, the application functionality is naturally documented for the API consumer.
 Controller action maps to a feature invoked 1-1.
-Some clients don't support that, so that needs to be kept in mind.
+Some clients don't support that (GET requests basically requiring a body - REST levels of maturity and other such lofty discussions), so that needs to be kept in mind.
 In such a way, reasoning about the use cases from the Client perspective should be a matter of calling specific features without much choreography
 (save for when a location header etc. are returned for asynchronous operations).
 
@@ -73,8 +73,11 @@ over failure result retrieval to make logging transparent to developers extendin
 
 ## General guidelines and ponderances
 Each feature does this:
+
 Asks for something through mediation. Who fulfills this demand ? No one cares.
+
 Extracts the result out.
+
 Decides how to respond, as it understands the implication of the result for the application.
 
 If a method in the service layer does anything more than that - there might be something wrong in the new feature being introduced.
