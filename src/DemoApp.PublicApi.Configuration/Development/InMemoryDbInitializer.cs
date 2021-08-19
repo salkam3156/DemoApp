@@ -23,7 +23,7 @@ namespace DemoApp.PublicApi.Configuration.Development
 
             await context.Sales.AddRangeAsync(new Sale[]
             {
-                new (1, 23.0m, DateTime.Now, products[0..1])
+                new (1, 23.0m, products[0..1])
             });
 
             if (await context.SaveChangesAsync() == 0) throw new Exception("Failed to initialize the development database.");
