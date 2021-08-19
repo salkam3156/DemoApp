@@ -9,5 +9,6 @@ namespace DemoApp.ApplicationCore.RepositoryContracts
     public interface IProductsRepository
     {
         public Task<Result<IEnumerable<Product>, DataAccessResult>> FindProductsBelowPriceAsync(decimal price);
+        public Task<Result<IEnumerable<Product>, DataAccessResult>> FindProductsByIdsAsync(IEnumerable<int> ids);
     }
 }
