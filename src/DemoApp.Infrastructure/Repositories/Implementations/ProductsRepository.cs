@@ -34,11 +34,11 @@ namespace DemoApp.Infrastructure.Repositories.Implementations
             var matchedProductsTasks = ids.Select(async id => await AppContext.Products.FindAsync(id));
             var mathedProducts = (await Task.WhenAll(matchedProductsTasks)).Where(product => product is not null).ToList();
 
-            //TODO: this instantiates 2 enumerators, so think about that
+            //TODO: this instantiates 2 enumerators, fixed by fixing above etc.
             return (mathedProducts.Count() == ids.Count()) switch
             {
                 true => new Result<IEnumerable<Product>, DataAccessResult>(mathedProducts),
-                // TODO: change the DataAccessResult to a more robuste type, template it and provide difference a la metched.Except(expected) or a text report
+                // TODO: change the DataAccessResult to a more robust type, template it and provide difference a la metched.Except(expected) or a text report
                 false => new Result<IEnumerable<Product>, DataAccessResult>(DataAccessResult.NotAllFound)
             };
         }
