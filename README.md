@@ -48,6 +48,8 @@ performance reasons, technology change that future may bring given some limitati
 
 ## Road forward
 
+If this is to be botha demo and a template, repositories should not map 1-1 to CRUD operations. Need to make domain richer to be able to think up / demonstrate some sensical use cases.
+
 Application Queries and Commands should percolate up to controller level, and basically be the Action params.
 In such a way, the application functionality is naturally documented for the API consumer.
 Controller action maps to a feature invoked 1-1.
@@ -68,6 +70,3 @@ Splitting these off into separate assemblies, deployable as separate deployment 
 
 Failure result should be made more robust, aggregating failures along the way / call stack. Logging can be a function-currying like invocation/aspect
 over failure result retrieval to make logging transparent to developers extending functionality ("logging can't be skipped , because it's inherent in the design").
-
-
-
