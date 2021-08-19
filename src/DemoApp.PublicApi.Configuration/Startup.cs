@@ -40,8 +40,10 @@ namespace DemoApp.PublicApi.Configuration
             });
 
             services.AddTransient<IProductsRepository, ProductsRepository>();
+            services.AddTransient<ISalesRepository, SalesRepository>();
             services.AddTransient<INotifier, NotificationGateway>();
 
+            services.AddExceptionHandler(opt => opt.ExceptionHandlingPath = "/error");
 
             var pluginsConfiguration = _configuration.Get<Plugins>();
             services.AddControllersFromExternalAssembly(pluginsConfiguration);
@@ -65,6 +67,8 @@ namespace DemoApp.PublicApi.Configuration
             }
 
             app.UseHttpsRedirection();
+
+            app.UseExceptionHandler();
 
             app.UseRouting();
 
