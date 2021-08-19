@@ -52,6 +52,9 @@ Application Queries and Commands should percolate up to controller level, and ba
 In such a way, the application functionality is naturally documented for the API consumer.
 Controller action maps to a feature invoked 1-1.
 Some clients don't support that, so that needs to be kept in mind.
+In such a way, reasoning about the use cases from the Client perspective should be a matter of calling specific features without much choreography
+(save for when a location header etc. are returned for asynchronous operations).
+Swagger Codegon -> code around 1-1 feature calls -> Done.
 
 Doamin could be split by intoducing the concept of a SaleItem, and divorcing it from Product.
 
@@ -64,7 +67,6 @@ Splitting these off into separate assemblies, deployable as separate deployment 
 
 Failure result should be made more robust, aggregating failures along the way / call stack. Logging can be a function-currying like invocation/aspect
 over failure result retrieval to make logging transparent to developers extending functionality ("logging can't be skipped , because it's inherent in the design").
-
 
 
 
