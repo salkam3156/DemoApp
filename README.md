@@ -54,7 +54,8 @@ Controller action maps to a feature invoked 1-1.
 Some clients don't support that, so that needs to be kept in mind.
 In such a way, reasoning about the use cases from the Client perspective should be a matter of calling specific features without much choreography
 (save for when a location header etc. are returned for asynchronous operations).
-Swagger Codegon -> code around 1-1 feature calls -> Done.
+
+Swagger Codegen -> code around 1-1 feature calls, as exposed by API -> Done.
 
 Doamin could be split by intoducing the concept of a SaleItem, and divorcing it from Product.
 
