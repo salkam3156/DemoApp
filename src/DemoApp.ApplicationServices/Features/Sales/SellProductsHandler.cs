@@ -21,7 +21,8 @@ namespace DemoApp.ApplicationServices.Features.Sales
         private readonly ILogger<SellProductsHandler> _logger;
 
         public SellProductsHandler(ISalesRepository salesRepository, IRegionalTaxProvider regionalTaxProvider, IMediator mediator, ILogger<SellProductsHandler> logger)
-            => (_salesRepository, _regionalTaxProvider, _mediator, _logger)= (salesRepository, regionalTaxProvider, mediator, logger);
+            =>  (_salesRepository, _regionalTaxProvider, _mediator, _logger) 
+                = (salesRepository, regionalTaxProvider, mediator, logger);
 
         public async Task<Result<Sale, DataAccessResult>> Handle(SellProductsCommand request, CancellationToken cancellationToken)
         {

@@ -21,6 +21,8 @@ namespace DemoApp.Infrastructure.Repositories.Implementations
 
         public async Task<Result<Sale, DataAccessResult>> CreateSaleRecordAsync(IEnumerable<Product> products, Tax tax)
         {
+            if (products.Any() is false) return new Result<Sale, DataAccessResult>(DataAccessResult.UnableToCreate);
+
             var saleRecordCreationResult = await AppContext.Sales.AddAsync(new Sale(tax.Rate, products));
 
             _ = await AppContext.SaveChangesAsync();
