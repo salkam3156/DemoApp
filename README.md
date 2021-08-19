@@ -57,7 +57,7 @@ In such a way, reasoning about the use cases from the Client perspective should 
 
 Swagger Codegen -> code around 1-1 feature calls, as exposed by API -> Done.
 
-Doamin could be split by intoducing the concept of a SaleItem, and divorcing it from Product.
+Domain (still called core from before service layer emerged with the concept of Notification) could be split by intoducing the concept of a SaleItem, and divorcing it from Product.
 
 Features could be split into services referencing their respective domains afterwards.
 There's coupling between Product and Sale.
