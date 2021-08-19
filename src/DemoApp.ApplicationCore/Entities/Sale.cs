@@ -1,5 +1,4 @@
 ﻿using DemoApp.ApplicationCore.GeneralAbstractions;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +7,11 @@ namespace DemoApp.ApplicationCore.Entities
 {
     public sealed record Sale
     {
-        private readonly ILazyLoader _lazyloader;
 
         public int Id { get; private init; }
         public decimal ApplicableTax { get; private init; }
 
-        private List<Product> _productsSold;
-        public List<Product> ProductsSold
-        {
-            get => _lazyloader.Load(this, ref _productsSold);
-            private set => _productsSold = value;
-        }
+        public List<Product> ProductsSold { get; private set; }
         public DateTime SoldOn { get; private init; }
 
         public Sale(decimal applicableTax, IEnumerable<Product> productsSold)
@@ -33,6 +26,5 @@ namespace DemoApp.ApplicationCore.Entities
         }
 
         private Sale() { }
-        private Sale(ILazyLoader lazyloader) => _lazyloader = lazyloader;
      }
 }

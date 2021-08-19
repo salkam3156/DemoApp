@@ -10,7 +10,7 @@ namespace DemoApp.ApplicationCore.RepositoryContracts
     public interface ISalesRepository
     {
         public Task<Result<Sale, DataAccessResult>> CreateSaleRecordAsync(IEnumerable<Product> products);
-        public Task<Result<Sale, DataAccessResult>> FindSaleRecord(int id);
+        public Task<Result<Sale, DataAccessResult>> FindSaleRecordAsync(int id);
     }
 }
 

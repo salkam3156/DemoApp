@@ -17,7 +17,7 @@ namespace DemoApp.ApplicationServices.Features.Sales
             
         public async Task<Result<Sale, DataAccessResult>> Handle(GetSaleRecordByIdRequest request, CancellationToken cancellationToken)
         {
-            return await _salesRepository.FindSaleRecord(request.SaleId);
+            return await _salesRepository.FindSaleRecordAsync(request.SaleId);
         }
     }
 }

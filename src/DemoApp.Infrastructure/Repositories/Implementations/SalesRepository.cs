@@ -33,9 +33,12 @@ namespace DemoApp.Infrastructure.Repositories.Implementations
             };
         }
 
-        public async Task<Result<Sale, DataAccessResult>> FindSaleRecord(int id)
+        public async Task<Result<Sale, DataAccessResult>> FindSaleRecordAsync(int id)
         {
-            var saleRecord = await AppContext.Sales.FindAsync(id);
+            var saleRecord = await AppContext.Sales
+                .Include(s => s.ProductsSold)
+                .Where(s => s.Id == id)
+                .SingleOrDefaultAsync();
 
             return saleRecord switch
             {
