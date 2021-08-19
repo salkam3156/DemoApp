@@ -1,5 +1,7 @@
 using DemoApp.ApplicationCore.RepositoryContracts;
+using DemoApp.ApplicationServices.Contracts;
 using DemoApp.Infrastructure.ClientNotifiers;
+using DemoApp.Infrastructure.ExternalApis;
 using DemoApp.Infrastructure.Repositories.DbContexts;
 using DemoApp.Infrastructure.Repositories.Implementations;
 using DemoApp.PublicApi.Configuration.Configuration;
@@ -13,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
-using DemoApp.ApplicationServices.MessagingContracts;
 
 namespace DemoApp.PublicApi.Configuration
 {
@@ -42,6 +43,7 @@ namespace DemoApp.PublicApi.Configuration
             services.AddTransient<IProductsRepository, ProductsRepository>();
             services.AddTransient<ISalesRepository, SalesRepository>();
             services.AddTransient<INotifier, NotificationGateway>();
+            services.AddTransient<IRegionalTaxProvider, RegionalTaxProviderApi>(); // actually would be a client wrapper over this
 
             services.AddExceptionHandler(opt => opt.ExceptionHandlingPath = "/error");
 
@@ -76,7 +78,7 @@ namespace DemoApp.PublicApi.Configuration
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<SignalRNotificationHub>("/notififcations", opt => opt.Transports = HttpTransportType.WebSockets | HttpTransportType.LongPolling);
+                endpoints.MapHub<SignalRNotificationHub>("/notifications", opt => opt.Transports = HttpTransportType.WebSockets | HttpTransportType.LongPolling);
                 endpoints.MapControllers();
             });
         }
