@@ -28,25 +28,31 @@ to catch exceptions propagating that the application did not originate in its as
 "The application is not at fault".
 Then the consumer can decide on logging strategy, depending on their hooks, orchestration across features etc.
 
-## Controllers as a plugin-type module
+### Controllers as a plugin-type module
 Controllers assembly references framework-specific assemblies.
 Still, by detaching it from web host configuration, we facilitate switching the assembly
 to one containing controllers with view support etc. through a simple configuration change.
 
-## Development module
+### Development module
 For ease of development - in the early stages - a strong coupling to a development module
 was introduced in the configuration / web host core.
 This allows for faking out infrastructure / DB dependencies.
 Removing the coupling requires web host configuration code changes, but they are limited 
 to one small assembly.
 
-## Breaking the explicit dependencies principle for sake of module isolation
+### Breaking the explicit dependencies principle for sake of module isolation
 Application services should not reference each other explicitly for sake of isolation / modularity.
 In-process messaging is used in place of explicit references to enforce modularity by design.
 This is to allow separating out application part into a module if needed - for the purposes of scaling,
 performance reasons, technology change that future may bring given some limitations encountered.
 
 ## Road forward
+
+Application Queries and Commands should percolate up to controller level, and basically be the Action params.
+In such a way, the application functionality is naturally documented for the API consumer.
+Controller action maps to a feature invoked 1-1.
+Some clients don't support that, so that needs to be kept in mind.
+
 Doamin could be split by intoducing the concept of a SaleItem, and divorcing it from Product.
 
 Features could be split into services referencing their respective domains afterwards.
