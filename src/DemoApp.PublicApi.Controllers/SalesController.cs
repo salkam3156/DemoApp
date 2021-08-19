@@ -4,6 +4,7 @@ using DemoApp.PublicApi.Controllers.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,9 +15,10 @@ namespace DemoApp.PublicApi.Controllers
     public class SalesController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly ILogger<SalesController> _logger;
 
-        public SalesController(IMediator mediator)
-            => _mediator = mediator;
+        public SalesController(IMediator mediator, ILogger<SalesController> logger)
+            => (_mediator, _logger) = (mediator, logger);
 
         [HttpGet("{saleId}", Name = nameof(GetSaleRecordById))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SaleResponseDto))]
@@ -27,8 +29,11 @@ namespace DemoApp.PublicApi.Controllers
 
             var extractedSale = saleQueryResult.Extract(
                 sale => sale,
-                failure => default
-                ) ;
+                failure =>
+                {
+                    _logger.LogError($"Didn't find the sale record. Reason: {failure}");
+                    return default;
+                });
 
             return extractedSale switch
             {
@@ -46,17 +51,15 @@ namespace DemoApp.PublicApi.Controllers
 
             var extractedSale = saleCommandResult.Extract(
                 sale => sale,
-                // TODO: change faulted result type for sales and add logging
-                failure => { /*log*/ return default; }
+                // TODO: change faulted result type for sales
+                failure => { _logger.LogError($"Didn't record the sale. Reason: {failure}"); return default; }
                 );
-
-            var namo = nameof(SalesController.GetSaleRecordById);
 
             return extractedSale switch
             {
                 Sale => CreatedAtRoute(nameof(SalesController.GetSaleRecordById), new { saleId = extractedSale.Id }, extractedSale),
-                _ => UnprocessableEntity() /* some validation or processing failed, logged before in extraction [TODO]
-                                            *, else we wouldn't be here because of an infrastructure error */
+                _ => UnprocessableEntity() /* some validation or processing failed, logged before in extraction
+                                            *, else we wouldn't be here because of an infrastructure error - by design */
             };
         }
     }

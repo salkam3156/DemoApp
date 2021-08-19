@@ -1,8 +1,9 @@
 ﻿using DemoApp.Infrastructure.Exceptions.Database;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
+using Microsoft.Extensions.Logging;
 
 namespace DemoApp.PublicApi.Controllers
 {
@@ -10,7 +11,12 @@ namespace DemoApp.PublicApi.Controllers
     [Route("[controller]")]
     public class ErrorController : ControllerBase
     {
+        private readonly ILogger<ErrorController> _logger;
+        public ErrorController(ILogger<ErrorController> logger)
+            => _logger = logger;
+        
         [AllowAnonymous]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public IActionResult CatchUnhandledError()
         {
@@ -21,14 +27,14 @@ namespace DemoApp.PublicApi.Controllers
                 return NoContent();
             }
 
-            // should be called in a string.Format style to give structured logging sinks a chance
+            _logger.LogError($"{nameof(ErrorController)}: An application dependency failed to meets its demands. The operation failed. Reason: {exceptionHandler.Error}");
 
             return exceptionHandler.Error switch
             {
                 DatabaseAccessException
-                    => StatusCode((int)HttpStatusCode.FailedDependency, "We're currently having issues fetching your data."),
+                    => StatusCode(StatusCodes.Status424FailedDependency, "We're currently having issues fetching your data."),
 
-                _ => StatusCode((int)HttpStatusCode.InternalServerError, "Sorry, we're having some issues. Please be patient while we resolve them.")
+                _ => StatusCode(StatusCodes.Status500InternalServerError, "Sorry, we're having some issues. Please be patient while we resolve them.")
             };
         }
     }
