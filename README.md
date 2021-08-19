@@ -70,3 +70,24 @@ Splitting these off into separate assemblies, deployable as separate deployment 
 
 Failure result should be made more robust, aggregating failures along the way / call stack. Logging can be a function-currying like invocation/aspect
 over failure result retrieval to make logging transparent to developers extending functionality ("logging can't be skipped , because it's inherent in the design").
+
+## General guidelines and ponderances
+Each feature does this:
+Asks for something through mediation. Who fulfills this demand ? No one cares.
+Extracts the result out.
+Decides how to respond, as it understands the implication of the result for the application.
+
+If a method in the service layer does anything more than that - there might be something wrong in the new feature being introduced.
+
+Say, if we need to compose an email to provide a response - add a service for email composition and pass to notifier implementaion etc.
+
+For noticably CPU and/or memory bound operations we assume application being run on a single thread, and having limited memory / being expected to respond quickly.
+
+If heavy processing is to be done, we consider if this is not a case for acknowledgement for furute results promise as opposed to immediate handling. 
+Assume asynchrony and low compute capabilities untill this is not an option.
+
+We should pass a resource location as a promise of work done at external dependencies behest. 
+Track and notify through client notifier. Which notifier is it ? Framework where the app is glued together with dependencies will decide.
+
+If long-running processing fails - it fails. We should assume that we don't need to wait for that failue, if it's the de facto response to the user, and our in-process flow has finished (waiting for results etc.).
+If a feature is demanded to be executed via synchronous call, then that's what's needed, and we should provide it (eg. client has no capability of hooking into the notifier implementation).
