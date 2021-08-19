@@ -22,7 +22,7 @@ namespace DemoApp.Infrastructure.Repositories.Implementations
 
         public async Task<Result<Sale, DataAccessResult>> CreateSaleRecordAsync(IEnumerable<Product> products)
         {
-            var saleRecordCreationResult = await AppContext.Sales.AddAsync(new Sale(23.0m /* some service would be supplying tax details via param */, DateTime.Now, products));
+            var saleRecordCreationResult = await AppContext.Sales.AddAsync(new Sale(23.0m /* some service would be supplying tax details via param */, products));
 
             _ = await AppContext.SaveChangesAsync();
 

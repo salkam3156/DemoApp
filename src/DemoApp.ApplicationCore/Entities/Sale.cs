@@ -21,28 +21,15 @@ namespace DemoApp.ApplicationCore.Entities
         }
         public DateTime SoldOn { get; private init; }
 
-        public Sale(int id, decimal applicableTax, IEnumerable<Product> productsSold)
+        public Sale(decimal applicableTax, IEnumerable<Product> productsSold)
         {
             Validation.ThrowIfAnyAreFalse(
-                () => id >= 1,
                 () => applicableTax > 0,
                 () => productsSold is not null && productsSold.Any());
 
-            Id = id;
             ApplicableTax = applicableTax;
             ProductsSold = productsSold.ToList();
             SoldOn = DateTime.Now;
-        }
-
-        public Sale(decimal applicableTax, DateTime soldOn, IEnumerable<Product> productsSold)
-        {
-            Validation.ThrowIfAnyAreFalse(
-                () => applicableTax > 0,
-                () => productsSold is not null && productsSold.Any());
-
-            ApplicableTax = applicableTax;
-            ProductsSold = productsSold.ToList();
-            SoldOn = soldOn;
         }
 
         private Sale() { }
