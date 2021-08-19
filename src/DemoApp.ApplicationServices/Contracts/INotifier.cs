@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DemoApp.ApplicationServices.Models;
 
-namespace DemoApp.ApplicationServices.MessagingContracts
+namespace DemoApp.ApplicationServices.Contracts
 {
     public interface INotifier
     {

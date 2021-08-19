@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
-using DemoApp.ApplicationServices.MessagingContracts;
 using DemoApp.ApplicationServices.Models;
+using DemoApp.ApplicationServices.Contracts;
 
 namespace DemoApp.Infrastructure.ClientNotifiers
 {
