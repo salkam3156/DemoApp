@@ -13,15 +13,13 @@ namespace DemoApp.ApplicationCore.Entities
         public string Description { get; private init; }
 
         private Product() { }
-        public Product(int id, string name, ProductType type, decimal price, string manufacturer, string description = "")
+        public Product(string name, ProductType type, decimal price, string manufacturer, string description = "")
         {
             Validation.ThrowIfAnyAreFalse(
-                () => id >= 1,
                 () => string.IsNullOrWhiteSpace(name) is false,
                 () => string.IsNullOrWhiteSpace(manufacturer) is false,
                 () => Enum.IsDefined(type));
             
-            Id = id;
             Name = name;
             Type = type;
             Price = price < 0m ? 0m : price;
