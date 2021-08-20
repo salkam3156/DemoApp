@@ -94,3 +94,5 @@ Track and notify through client notifier. Which notifier is it ? Framework where
 
 If long-running processing fails - it fails. We should assume that we don't need to wait for that failue, if it's the de facto response to the user, and our in-process flow has finished (waiting for results etc.).
 If a feature is demanded to be executed via synchronous call, then that's what's needed, and we should provide it (eg. client has no capability of hooking into the notifier implementation).
+
+ Out-of-cluster services must have retry logic (RegionalTaxProvider etc.)
