@@ -28,7 +28,7 @@ namespace DemoApp.PublicApi.Controllers
                 return NoContent();
             }
 
-            _logger.LogError($"{nameof(ErrorController)}: An application dependency failed to meets its demands. The operation failed. Reason: {exceptionHandler.Error}");
+            _logger.LogError($"{nameof(ErrorController)}: An application dependency failed to meet its demands. The operation failed. Reason: {exceptionHandler.Error}");
 
             return exceptionHandler.Error switch
             {
