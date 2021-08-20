@@ -72,15 +72,15 @@ Failure result should be made more robust, aggregating failures along the way / 
 over failure result retrieval to make logging transparent to developers extending functionality ("logging can't be skipped , because it's inherent in the design").
 
 ## General guidelines and ponderances
-Each feature does this:
+Each controller does this:
 
 Asks for something through mediation. Who fulfills this demand ? No one cares.
-
 Extracts the result out.
-
 Decides how to respond, as it understands the implication of the result for the application.
 
-If a method in the service layer does anything more than that - there might be something wrong in the new feature being introduced.
+Same applies to features, though they are coupled to the concept of a repository, hence the demand part involves explicit coupling to a non-event, functional abstraction.
+
+If a method in the service layer or controller does anything more than that - there might be something wrong in the new feature being introduced.
 
 Say, if we need to compose an email to provide a response - add a service for email composition and pass to notifier implementaion etc.
 
