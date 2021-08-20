@@ -1,5 +1,8 @@
+
 # DemoApp
 Generic business system template
+
+![DemoApp](https://user-images.githubusercontent.com/7130429/130187277-b338fa42-6aa1-48a8-bb50-3a84abec662d.png)
 
 ## ADRs
 ### Result and avoiding null checks
