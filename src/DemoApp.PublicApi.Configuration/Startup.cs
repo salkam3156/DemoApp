@@ -48,8 +48,10 @@ namespace DemoApp.PublicApi.Configuration
             services.AddExceptionHandler(opt => opt.ExceptionHandlingPath = "/error");
 
             var pluginsConfiguration = _configuration.Get<Plugins>();
+
             services.AddControllersFromExternalAssembly(pluginsConfiguration);
             services.AddApplicationFeatures(pluginsConfiguration);
+            services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {

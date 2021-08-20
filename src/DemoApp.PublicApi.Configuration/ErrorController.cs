@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace DemoApp.PublicApi.Controllers
+namespace DemoApp.PublicApi.Configuration
 {
     [ApiController]
     [Route("[controller]")]

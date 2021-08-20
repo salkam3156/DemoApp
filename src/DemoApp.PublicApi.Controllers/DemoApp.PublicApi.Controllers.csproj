@@ -15,7 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DemoApp.ApplicationCore\DemoApp.ApplicationCore.csproj" />
     <ProjectReference Include="..\DemoApp.ApplicationServices\DemoApp.ApplicationServices.csproj" />
-    <ProjectReference Include="..\DemoApp.Infrastructure\DemoApp.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
