@@ -72,15 +72,15 @@ Failure result should be made more robust, aggregating failures along the way / 
 over failure result retrieval to make logging transparent to developers extending functionality ("logging can't be skipped , because it's inherent in the design").
 
 ## General guidelines and ponderances
-Each feature does this:
+Each controller does this:
 
 Asks for something through mediation. Who fulfills this demand ? No one cares.
-
 Extracts the result out.
-
 Decides how to respond, as it understands the implication of the result for the application.
 
-If a method in the service layer does anything more than that - there might be something wrong in the new feature being introduced.
+Same applies to features, though they are coupled to the concept of a repository, hence the demand part involves explicit coupling to a non-event, functional abstraction.
+
+If a method in the service layer or controller does anything more than that - there might be something wrong in the new feature being introduced.
 
 Say, if we need to compose an email to provide a response - add a service for email composition and pass to notifier implementaion etc.
 
@@ -94,3 +94,5 @@ Track and notify through client notifier. Which notifier is it ? Framework where
 
 If long-running processing fails - it fails. We should assume that we don't need to wait for that failue, if it's the de facto response to the user, and our in-process flow has finished (waiting for results etc.).
 If a feature is demanded to be executed via synchronous call, then that's what's needed, and we should provide it (eg. client has no capability of hooking into the notifier implementation).
+
+ Out-of-cluster services must have retry logic (RegionalTaxProvider etc.)
