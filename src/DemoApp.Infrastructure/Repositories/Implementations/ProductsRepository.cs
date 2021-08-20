@@ -4,6 +4,7 @@ using DemoApp.ApplicationCore.GeneralAbstractions;
 using DemoApp.ApplicationCore.RepositoryContracts;
 using DemoApp.Infrastructure.Exceptions.Database;
 using DemoApp.Infrastructure.Repositories.DbContexts;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace DemoApp.Infrastructure.Repositories.Implementations
 {
     public sealed class ProductsRepository : AsyncRepositoryBase<Product>, IProductsRepository
     {
-        public ProductsRepository(DomainContext ctx) : base(ctx) {}
+        public ProductsRepository(DomainContext ctx, ILogger<ProductsRepository> logger) : base(ctx, logger) {}
         public DomainContext AppContext
             => Ctx as DomainContext
             ?? throw new DatabaseAccessException($"{nameof(AppContext)} could not be accessed due to failed DB dependency.");

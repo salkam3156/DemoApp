@@ -2,6 +2,7 @@
 using DemoApp.ApplicationCore.GeneralAbstractions;
 using DemoApp.ApplicationCore.RepositoryContracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,10 @@ namespace DemoApp.Infrastructure.Repositories
     public abstract class AsyncRepositoryBase<TEntity> : IAsyncReposiroty<TEntity> where TEntity : class
     {
         protected readonly DbContext Ctx;
-        public AsyncRepositoryBase(DbContext ctx) 
-            => Ctx = ctx;
+        private readonly ILogger<AsyncRepositoryBase<TEntity>> _logger;
+
+        public AsyncRepositoryBase(DbContext ctx, ILogger<AsyncRepositoryBase<TEntity>> logger) 
+            => (Ctx, _logger) = (ctx, logger);
 
         public Task<DataAccessResult> AddAsync(TEntity entity)
         {
@@ -33,7 +36,7 @@ namespace DemoApp.Infrastructure.Repositories
             }
             catch (Exception ex) when (ex is InvalidOperationException io || ex is  ArgumentNullException an)
             {
-                //TODO: add logging
+                _logger.LogWarning(ex, $"{nameof(AsyncRepositoryBase<TEntity>)}: Could not find the resource");
                 return new Result<TEntity, DataAccessResult>(DataAccessResult.GeneralExecutionFailure);
             }
 
@@ -46,11 +49,25 @@ namespace DemoApp.Infrastructure.Repositories
 
         public async Task<Result<IEnumerable<TEntity>, DataAccessResult>> GetAllAsync()
         {
-            var queryResults = await Ctx
-                .Set<TEntity>()
-                .ToListAsync();
 
-            return new Result<IEnumerable<TEntity>, DataAccessResult>(queryResults.AsReadOnly());
+            IEnumerable<TEntity> queryResults = default;
+            try 
+            { 
+                queryResults = await Ctx
+                    .Set<TEntity>()
+                    .ToListAsync();
+            }
+            catch (Exception ex) when (ex is ArgumentNullException an)
+            {
+                _logger.LogWarning(ex, $"{nameof(AsyncRepositoryBase<TEntity>)}: Could not find the resources");
+                return new Result<IEnumerable<TEntity>, DataAccessResult>(DataAccessResult.GeneralExecutionFailure);
+            }
+
+            return queryResults.Any() switch
+            {
+                true => new Result<IEnumerable<TEntity>, DataAccessResult>(queryResults),
+                _ => new Result<IEnumerable<TEntity>, DataAccessResult>(DataAccessResult.NotFound),
+            };
         }
 
         public Task<Result<TEntity, DataAccessResult>> GetAsync(int id)

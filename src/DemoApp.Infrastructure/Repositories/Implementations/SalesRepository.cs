@@ -6,6 +6,7 @@ using DemoApp.ApplicationCore.RepositoryContracts;
 using DemoApp.Infrastructure.Exceptions.Database;
 using DemoApp.Infrastructure.Repositories.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace DemoApp.Infrastructure.Repositories.Implementations
 {
     public sealed class SalesRepository : AsyncRepositoryBase<Product>, ISalesRepository
     {
-        public SalesRepository(DomainContext ctx) : base(ctx) {}
+        public SalesRepository(DomainContext ctx, ILogger<SalesRepository> logger) : base(ctx, logger) {}
         public DomainContext AppContext
             => Ctx as DomainContext
             ?? throw new DatabaseAccessException($"{nameof(AppContext)} could not be accessed due to failed DB dependency.");

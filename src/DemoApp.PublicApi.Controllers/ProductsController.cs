@@ -24,19 +24,21 @@ namespace DemoApp.PublicApi.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ProductResponseDto>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProductsBelowPrice([FromQuery] decimal belowPrice)
+        public async Task<IActionResult> GetProducts([FromQuery] decimal belowPrice)
         {
-            var queryResult = await _mediator.Send(new GetProductsBelowPriceQuery(belowPrice));
-            
+            var queryResult = HttpContext.Request.Query.Any() ?
+                await _mediator.Send(new GetProductsBelowPriceQuery(belowPrice))
+                : await _mediator.Send(new GetProductsQuery());
+
             var extractedResult = queryResult.Extract(
                 products => products,
                 fetchFailure => Enumerable.Empty<Product>());
-            
+
             return extractedResult.Any() switch
             {
                 true => Ok(_mapper.Map<List<ProductResponseDto>>(extractedResult)),
                 false => NotFound()
             };
         }
-    }
+    } 
 }
