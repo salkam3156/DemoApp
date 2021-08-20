@@ -1,4 +1,5 @@
 ﻿using DemoApp.Infrastructure.Exceptions.Database;
+using DemoApp.Infrastructure.Exceptions.FileStorage;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -31,7 +32,7 @@ namespace DemoApp.PublicApi.Controllers
 
             return exceptionHandler.Error switch
             {
-                DatabaseAccessException
+                DatabaseAccessException or FileStorageAccessException
                     => StatusCode(StatusCodes.Status424FailedDependency, "We're currently having issues fetching your data."),
 
                 _ => StatusCode(StatusCodes.Status500InternalServerError, "Sorry, we're having some issues. Please be patient while we resolve them.")
